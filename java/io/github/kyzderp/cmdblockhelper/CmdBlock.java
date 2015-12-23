@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiCommandBlock;
@@ -163,7 +164,11 @@ public class CmdBlock
 		Field field = GuiCommandBlock.class.getDeclaredField("commandTextField");
 		field.setAccessible(true);
 		GuiTextField textfield = (GuiTextField) field.get(screen);
-		textfield.setText(textfield.getText().replaceAll(this.regex, this.replacement));
+		try {
+			textfield.setText(textfield.getText().replaceAll(this.regex, this.replacement));
+		} catch (PatternSyntaxException e) {
+			LiteModCmdBlockHelper.logError("Invalid RegEx: " + this.regex);
+		}
 		screen.updateScreen();
 		
 		Method clickmethod = GuiCommandBlock.class.getDeclaredMethod("actionPerformed", GuiButton.class); 

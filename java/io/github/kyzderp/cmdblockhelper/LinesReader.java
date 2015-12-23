@@ -20,6 +20,27 @@ public class LinesReader
 	{
 	}
 	
+	public String loadCommand()
+	{
+		File path = new File(dirs.getPath() + File.separator + "command.txt");
+		if (!path.exists())
+			return "";
+		Scanner scan;
+		try {
+			scan = new Scanner(path);
+		} catch (FileNotFoundException e) {
+			return "";
+		}
+		if (scan.hasNext())
+		{
+			String line = scan.nextLine();
+			scan.close();
+			return line;
+		}
+		scan.close();
+		return "";
+	}
+	
 	public List<String> loadFile(String filename)
 	{
 		if (!filename.matches(".*\\..*"))

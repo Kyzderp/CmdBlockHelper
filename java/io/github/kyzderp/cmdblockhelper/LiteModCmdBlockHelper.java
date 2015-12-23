@@ -41,7 +41,7 @@ public class LiteModCmdBlockHelper implements Tickable, OutboundChatFilter
 	{
 		this.reader = new LinesReader();
 		this.cmdblock = new CmdBlock(this, this.reader);
-		this.commands = new Commands(this.cmdblock, this);
+		this.commands = new Commands(this.cmdblock, this, this.reader);
 		this.justOpened = true;
 	}
 
